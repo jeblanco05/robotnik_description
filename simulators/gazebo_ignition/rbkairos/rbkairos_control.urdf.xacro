@@ -16,6 +16,10 @@
         <parameters>$(find robotnik_description)/simulators/gazebo_ignition/rbkairos/rbkairos_controller_params.yaml</parameters>
         <ros>
           <namespace>/${namespace}</namespace>
+          <remapping>/${namespace}/tf:=/tf</remapping>
+          <remapping>/${namespace}/tf_static:=/tf_static</remapping>
+          <remapping>/${namespace}/robotnik_base_control/tf_odometry:=/tf</remapping>
+          <remapping>/${namespace}/robotnik_base_control/odometry:=/${namespace}/odom</remapping>
         </ros>
       </plugin>
     </gazebo>

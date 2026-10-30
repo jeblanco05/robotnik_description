@@ -21,7 +21,7 @@
     default="false" />
   <xacro:arg
     name="ur_type"
-    default="ur10e" />
+    default="ur5e" />
 
   <!-- RB-KAIROS -->
   <xacro:rbkairos
@@ -32,6 +32,7 @@
   <!-- ARMS -->
   <xacro:arm_ur
     ur_type="$(arg ur_type)"
+    initial_positions_file="$(arg initial_positions_file)"
     frame_prefix="$(arg prefix)arm_"
     parent="$(arg prefix)top_cover"
     gazebo_ignition="$(arg gazebo_ignition)">

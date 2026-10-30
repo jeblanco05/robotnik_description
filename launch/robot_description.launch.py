@@ -104,9 +104,18 @@ def generate_launch_description():
     arg = ExtendedArgument(
         name='arm_type',
         description='Type of robotic arm used by robot xacro',
-        default_value='ur10e',
+        default_value='ur5e',
         use_env=True,
         environment='ARM_TYPE',
+    )
+    add_to_launcher.add_arg(arg)
+
+    arg = ExtendedArgument(
+        name='gripper_type',
+        description='Type of gripper used by robot xacro',
+        default_value='qbhand',
+        use_env=True,
+        environment='GRIPPER_TYPE',
     )
     add_to_launcher.add_arg(arg)
 
@@ -120,7 +129,9 @@ def generate_launch_description():
             " namespace:=",params["namespace"],
             " prefix:=",params["frame_prefix"],
             " gazebo_ignition:=",params["gazebo_ignition"],
+            " use_sim:=",params["gazebo_ignition"],
             " ur_type:=",params["arm_type"],
+            " gripper_type:=",params["gripper_type"],
             " low_performance:=",params["low_performance_simulation"]
         ]
     )

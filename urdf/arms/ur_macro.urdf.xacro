@@ -10,6 +10,7 @@
     name="arm_ur"
     params="
     ur_type
+    initial_positions_file:=''
     frame_prefix
     *origin
     parent
@@ -27,7 +28,11 @@
     <xacro:property
       name="visual_params"
       default="$(find ur_description)/config/$(arg ur_type)/visual_parameters.yaml" />
-
+    
+    <xacro:property
+      name="initial_positions"
+      value="${xacro.load_yaml(initial_positions_file) if initial_positions_file != '' else dict(shoulder_pan_joint=0.0, shoulder_lift_joint=-1.57, elbow_joint=0.0, wrist_1_joint=-1.57, wrist_2_joint=0.0, wrist_3_joint=0.0)}" />
+    
     <xacro:ur_robot
       name="${ur_type}"
       tf_prefix="${frame_prefix}"
@@ -41,20 +46,15 @@
     </xacro:ur_robot>
 
     <xacro:if value="$(arg gazebo_ignition)">
-      <!-- filename="$(find ur_description)/urdf/ur.ros2_control.xacro"  -->
       <xacro:include
         filename="$(find ur_simulation_gz)/urdf/ur_gz.ros2_control.xacro"
         />
-        <!-- sim_ignition="true" -->
-        <!-- script_filename="" -->
-        <!-- output_recipe_filename="" -->
-        <!-- input_recipe_filename="" -->
-        <!-- hash_kinematics="" -->
-        <!-- robot_ip=""  -->
       <xacro:ur_ros2_control
         name="arm"
         tf_prefix="${frame_prefix}"
+        initial_positions="${initial_positions}"
         />
     </xacro:if>
   </xacro:macro>
 </robot>
+
